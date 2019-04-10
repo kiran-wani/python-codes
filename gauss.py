@@ -12,8 +12,8 @@ mu=range(0,320,20)
 x= np.linspace(0, 350, 10000)
 y=0
 def gauss(x, sigma,mu): 
-    return 1.0/(sigma*np.sqrt(2*np.pi))*np.exp(-(x-mu)**2/(2*sigma**2))
-
+ a= 1.0/(sigma*np.sqrt(2*np.pi))*np.exp(-(x-mu)**2/(2*sigma**2))
+ return(a)
 for i in range(0,16):
 	y1=gauss(x,sigma[i],mu[i])	
 	y=y+y1
