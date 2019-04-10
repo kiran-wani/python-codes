@@ -1,10 +1,9 @@
-#simple python code to understand gaussian process
 import numpy as np
 import matplotlib.pyplot as pl
 
 # Test data
 n = 50
-Xtest = np.linspace(-5, 5, n).reshape(-1,1)
+Xtest = np.linspace(-7, 7, n).reshape(-1,1)
 
 # Define the kernel function
 def kernel(a, b, param):
@@ -19,13 +18,14 @@ K_ss = kernel(Xtest, Xtest, param)
 L = np.linalg.cholesky(K_ss + 1e-15*np.eye(n))
 # Sample 3 sets of standard normals for our test points,
 # multiply them by the square root of the covariance matrix
-f_prior = np.dot(L, np.random.normal(size=(n,10)))
+f_prior = np.dot(L, np.random.normal(size=(n,3)))
 
 # Now let's plot the 3 sampled functions.
 # Noiseless training data
-Xtrain = np.array([-4, -3, -2, -1, 1,2,1,2,3,-3,5,2,-1,0,2]).reshape(15,1)
-ytrain=np.array([-4,0,1,3,5,-4, -3, -2, -1, 1,2,1,2,3,-3]).reshape(15,1)
-#ytrain = np.cos(Xtrain)
+Xtrain=np.arange(-6,6,0.5).reshape(24,1)
+#Xtrain=np.arange(-6.28,6.28,0.2).reshape(63,1)
+#Xtrain = np.array([-1,-2,3,0,1]).reshape(5,1)
+ytrain = np.cos(Xtrain)
 
 # Apply the kernel function to our training points
 K = kernel(Xtrain, Xtrain, param)
@@ -45,8 +45,9 @@ f_post = mu.reshape(-1,1) + np.dot(L, np.random.normal(size=(n,3)))
 
 pl.plot(Xtrain, ytrain, 'bs', ms=8)
 pl.plot(Xtest, f_post)
-pl.gca().fill_between(Xtest.flat, mu-0.3*stdv, mu+0.3*stdv, color="#dddddd")
+pl.gca().fill_between(Xtest.flat, mu-0.5*stdv, mu+0.5*stdv, color="#dddddd")
 pl.plot(Xtest, mu, 'r--', lw=2)
 #pl.axis([-5, 5, -3, 3])
 pl.title('Three samples from the GP posterior')
-pl.show()
+
+pl.savefig('gp4.eps', format='eps', dpi=100)
