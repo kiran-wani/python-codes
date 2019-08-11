@@ -1,6 +1,6 @@
 '''
 This will generate a time series based on damped random walk model/Ornstein Uhlenback Process which wll be the continuum light curve. The continuum LC is scaled, smoothed and shifted to form the emission line light curve.
-
+I will add proper comments wherever required in some time
 Written by:
 Vivek Kumar Jha
 JRF @ ARIES, Nainital India
@@ -12,7 +12,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib as mp
 import csv,random,sys
-from astropy.convolution import MexicanHat1DKernel,Trapezoid1DKernel,Box1DKernel,Gaussian1DKernel,convolve
+from astropy.convolution import Trapezoid1DKernel,Box1DKernel,Gaussian1DKernel,convolve
 from scipy.ndimage.interpolation import shift
 #~~~~~~~~~~~~~~~~ For Plotting only~~~~~~~~~~#
 mp.rcParams['font.family']='serif'
